@@ -4,7 +4,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import missingno as msno
-
+page_bg_img = """ 
+<style>
+[data-testid="stAppViewContainer"]{
+background-color:coral;
+}
+</style>
+"""
 # Reading data
 df = pd.read_csv("Uber Trip.csv", encoding='latin1')
 df.columns = df.columns.str.replace("*","")
@@ -110,7 +116,7 @@ sns.boxplot(data=df,x=df.PURPOSE,y=df.minutes,showfliers=False)
 plt.xticks(rotation=45)
 st.pyplot(ab)
 
-st=plt.figure(figsize=(8,5))
+plt.figure(figsize=(8,5))
 # Create a new column indicating whether a trip is round or not
 df['Round_TRIP'] = df.apply(lambda x: 'yes' if x['START']==x['STOP'] else 'no', axis=1)
 # Count the number of trips for each category of Round_TRIP and create a bar plot
@@ -120,7 +126,7 @@ round_trip_counts.plot(kind='bar', color='blue')
 plt.xlabel('Round Trip')
 plt.ylabel('Count')
 plt.title('Number of Round Trips')
-st.pyplot(st)
+st.pyplot()
 df['month']= pd.DatetimeIndex(df['START_DATE']).month
 dic = {1:'jan',2:'feb',3:'mar',4:'apr',5:'may',6:'jun',7:'jul',8:'aug',9:'sept',10:'oct',11:'nov',12:'dec'}
 df['month'] =df['month'].map(dic)
