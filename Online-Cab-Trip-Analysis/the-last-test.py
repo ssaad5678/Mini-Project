@@ -4,16 +4,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import missingno as msno
-page_bg_img = """ 
-<style>
-[data-testid="stAppViewContainer"]{
-background-color:coral;
+
+# Define some CSS styles
+css = """
+h1 {
+    color: #FFD700;
+    text-align: center;
 }
-</style>
+p {
+    font-size: 20px;
+}
 """
+
+# Display the styles
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+# Display some content
+st.write('# Online Cab Trip Analysis')
+
 # Reading data
 df = pd.read_csv("Uber Trip.csv", encoding='latin1')
 df.columns = df.columns.str.replace("*","")
+st.write('Simple DataSet')
+st.write(df.head())
+st.write('The Complete Data Set')
+st.write(df)
+
 
 # Missing Data
 st.header('Missing Data')
@@ -54,7 +69,7 @@ st.pyplot(fig)
 st.write('Start points with 10 or fewer trips')
 st.write(start_point[start_point<=10])
 
-st.write('Stop points with more than 10 trips')
+st.write('# Stop points with more than 10 trips')
 stop_point = df.STOP.value_counts()
 st.write(stop_point[stop_point>10])
 
